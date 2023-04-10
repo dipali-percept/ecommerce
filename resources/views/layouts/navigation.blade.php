@@ -42,6 +42,18 @@
                         {{ __('Manage Post') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('country.index')" :active="request()->routeIs('country*')">
+                        {{ __('Manage Country') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('sub_category.index')" :active="request()->routeIs('sub_category*')">
+                        {{ __('Manage Sub Category') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('currency.index')" :active="request()->routeIs('currency*')">
+                        {{ __('Manage Currency') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

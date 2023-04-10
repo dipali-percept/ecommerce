@@ -24,6 +24,9 @@ Route::get('/', function () {
 });
 
 
+
+// ADMIN ROUTES
+
 Route::group(
     [
         'prefix' => 'admin',
@@ -43,6 +46,9 @@ Route::group(
         Route::resource('products', ProductController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('posts', PostController::class);
+        Route::resource('country', CountryController::class);
+        Route::resource('sub_category', SubCategoryController::class);
+        Route::resource('currency', CurrencyController::class);
 
     }
 )->name('admin.');

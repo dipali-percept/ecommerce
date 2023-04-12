@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Country;
 
 class CountryController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:country-list|country-create|country-edit|country-delete', ['only' => ['index','show']]);
-        $this->middleware('permission:country-create', ['only' => ['create','store']]);
-        $this->middleware('permission:country-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:country-delete', ['only' => ['destroy']]);
+        // $this->middleware('permission:country-list|country-create|country-edit|country-delete', ['only' => ['index','show']]);
+        // $this->middleware('permission:country-create', ['only' => ['create','store']]);
+        // $this->middleware('permission:country-edit', ['only' => ['edit','update']]);
+        // $this->middleware('permission:country-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -19,8 +20,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->paginate(10);
-        return view('country.index',compact('categories'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $countries = Country::latest()->paginate(10);
+        return view('country.index',compact('countries'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -41,7 +42,7 @@ class CountryController extends Controller
             'name' => 'required',
         ]);
 
-        Category::create($request->all());
+        Country::create($request->all());
 
         return redirect()->route('country.index')->with('success','Country created successfully.');
     }
@@ -51,7 +52,7 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        return view('country.show',compact('category'));
+        return view('country.show',compact('country'));
     }
 
     /**
@@ -59,7 +60,7 @@ class CountryController extends Controller
      */
     public function edit(Country $country)
     {
-        return view('country.edit',compact('category'));
+        return view('country.edit',compact('country'));
     }
 
     /**
@@ -68,10 +69,11 @@ class CountryController extends Controller
     public function update(Request $request, Country $country)
     {
         request()->validate([
+            'code' => 'required',
             'name' => 'required',
         ]);
 
-        $category->update($request->all());
+        $country->update($request->all());
 
         return redirect()->route('country.index')->with('success','Country updated successfully');
     }
@@ -81,13 +83,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        $products = Product::where('category_id', $category->id)->count();
-
-        if($products <= 0){
-            $category->delete();
-            return redirect()->route('country.index')->with('success','Country deleted successfully');
-        } else {
-            return redirect()->route('country.index')->with('success','You can not delete this category. '.$category->name.' have '.$products.' products.');
-        }
+        $country->delete();
+        return redirect()->route('country.index')->with('success','Country deleted successfully');
     }
 }

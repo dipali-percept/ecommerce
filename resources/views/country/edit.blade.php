@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Product') }}
+            {{ __('Edit Country') }}
         </h2>
     </x-slot>
 
@@ -13,10 +13,10 @@
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-left">
-                                {{-- <h2>Edit Product</h2> --}}
+                                {{-- <h2>Edit Country</h2> --}}
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('categories.index') }}"> Back</a>
+                                <a class="btn btn-primary" href="{{ route('country.index') }}"> Back</a>
                             </div>
                         </div>
                     </div>
@@ -34,15 +34,21 @@
                     @endif
 
 
-                    <form action="{{ route('categories.update',$category->id) }}" method="POST">
+                    <form action="{{ route('country.update',$country->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <strong>Code:</strong>
+                                    <input type="text" name="code" value="{{ $country->code }}" class="form-control" placeholder="Code">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" name="name" value="{{ $category->name }}" class="form-control" placeholder="Name">
+                                    <input type="text" name="name" value="{{ $country->name }}" class="form-control" placeholder="Name">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

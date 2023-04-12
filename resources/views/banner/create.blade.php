@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Product') }}
+            {{ __('Add New Category') }}
         </h2>
     </x-slot>
 
@@ -13,10 +13,10 @@
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-left">
-                                {{-- <h2>Edit Product</h2> --}}
+                                {{-- <h2>Add New Product</h2> --}}
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
+                                <a class="btn btn-primary" href="{{ route('banner.index') }}"> Back</a>
                             </div>
                         </div>
                     </div>
@@ -34,39 +34,38 @@
                     @endif
 
 
-                    <form action="{{ route('products.update',$product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
-
 
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <strong>Select Category:</strong>
-                                    <select name="category_id" id="category_id" class="form-control">
-                                        @foreach ($categories as $category)
-                                            <option value="{{$category->id}}" {{$category->id == $product->category_id ? 'selected' : ''}}>{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <strong>Start Date:</strong>
+                                    <input type="date" name="start_date" class="form-control" placeholder="Start Date">
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>End Date:</strong>
+                                    <input type="date" name="end_date" class="form-control" placeholder="End Date">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Name:</strong>
-                                    <input type="text" name="name" value="{{ $product->name }}" class="form-control" placeholder="Name">
+                                    <strong>Title:</strong>
+                                    <input type="text" name="title" class="form-control" placeholder="Title">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Description:</strong>
+                                    <input type="text" name="description" class="form-control" placeholder="Description">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Image:</strong>
                                     <input type="file" name="image" class="form-control" placeholder="Image">
-                                    <img src="/images/{{ $product->image }}" height="200px" width="200px">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Detail:</strong>
-                                    <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail">{{ $product->detail }}</textarea>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -82,3 +81,4 @@
         </div>
     </div>
 </x-app-layout>
+

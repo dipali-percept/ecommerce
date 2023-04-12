@@ -54,6 +54,10 @@
                         {{ __('Manage Currency') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('banner.index')" :active="request()->routeIs('banner*')">
+                        {{ __('Manage Banner') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

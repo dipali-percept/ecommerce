@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Currency extends Model
+class Banner extends Model
 {
     use HasFactory;
 
-    protected $table = 'currency';
+    protected $table = 'banner';
 
     protected $fillable = [
-        'code','name','symbol'
+        'start_date','end_date','title','description','image','is_active'
     ];
+
 }

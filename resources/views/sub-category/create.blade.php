@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add New Category') }}
+            {{ __('Add New Sub Category') }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
                                 {{-- <h2>Add New Product</h2> --}}
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('categories.index') }}"> Back</a>
+                                <a class="btn btn-primary" href="{{ route('sub_category.index') }}"> Back</a>
                             </div>
                         </div>
                     </div>
@@ -34,11 +34,21 @@
                     @endif
 
 
-                    <form action="{{ route('categories.store') }}" method="POST">
+                    <form action="{{ route('sub_category.store') }}" method="POST">
                         @csrf
 
 
                         <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Select Category:</strong>
+                                    <select name="category_id" id="category_id" class="form-control">
+                                        @foreach ($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>

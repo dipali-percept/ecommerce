@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Products') }}
+            {{ __('Category') }}
         </h2>
     </x-slot>
 
@@ -13,11 +13,11 @@
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-left">
-                                {{-- <h2>Products</h2> --}}
+                                {{-- <h2>Category</h2> --}}
                             </div>
                             <div class="pull-right">
                                 @can('product-create')
-                                <a class="btn btn-success" href="{{ route('categories.create') }}"> Create New Product</a>
+                                <a class="btn btn-success" href="{{ route('categories.create') }}"> Create New Category</a>
                                 @endcan
                             </div>
                         </div>

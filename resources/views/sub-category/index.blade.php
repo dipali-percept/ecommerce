@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Products') }}
+            {{ __('Sub Category') }}
         </h2>
     </x-slot>
 
@@ -13,11 +13,11 @@
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-left">
-                                {{-- <h2>Products</h2> --}}
+                                {{-- <h2>Sub Category</h2> --}}
                             </div>
                             <div class="pull-right">
                                 @can('product-create')
-                                <a class="btn btn-success" href="{{ route('categories.create') }}"> Create New Product</a>
+                                <a class="btn btn-success" href="{{ route('sub_category.create') }}"> Create New Sub Category</a>
                                 @endcan
                             </div>
                         </div>
@@ -34,18 +34,20 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>No</th>
+                            <th>Category</th>
                             <th>Name</th>
                             <th width="280px">Action</th>
                         </tr>
-                        @foreach ($categories as $product)
+                        @foreach ($sub_categories as $product)
                         <tr>
                             <td>{{ ++$i }}</td>
+                            <td>{{ $product->category->name }}</td>
                             <td>{{ $product->name }}</td>
                             <td>
-                                <form action="{{ route('categories.destroy',$product->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('categories.show',$product->id) }}">Show</a>
+                                <form action="{{ route('sub_category.destroy',$product->id) }}" method="POST">
+                                    <a class="btn btn-info" href="{{ route('sub_category.show',$product->id) }}">Show</a>
                                     @can('product-edit')
-                                    <a class="btn btn-primary" href="{{ route('categories.edit',$product->id) }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ route('sub_category.edit',$product->id) }}">Edit</a>
                                     @endcan
 
 
@@ -61,7 +63,7 @@
                     </table>
 
 
-                    {!! $categories->links() !!}
+                    {!! $sub_categories->links() !!}
 
                 </div>
             </div>

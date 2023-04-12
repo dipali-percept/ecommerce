@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Products') }}
+            {{ __('Currency') }}
         </h2>
     </x-slot>
 
@@ -13,11 +13,11 @@
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-left">
-                                {{-- <h2>Products</h2> --}}
+                                {{-- <h2>Currency</h2> --}}
                             </div>
                             <div class="pull-right">
                                 @can('product-create')
-                                <a class="btn btn-success" href="{{ route('categories.create') }}"> Create New Product</a>
+                                <a class="btn btn-success" href="{{ route('currency.create') }}"> Create New Currency</a>
                                 @endcan
                             </div>
                         </div>
@@ -34,18 +34,22 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>No</th>
+                            <th>Code</th>
                             <th>Name</th>
+                            <th>Symbol</th>
                             <th width="280px">Action</th>
                         </tr>
-                        @foreach ($categories as $product)
+                        @foreach ($currency as $product)
                         <tr>
                             <td>{{ ++$i }}</td>
+                            <td>{{ $product->code }}</td>
                             <td>{{ $product->name }}</td>
+                            <td>{{ $product->symbol }}</td>
                             <td>
-                                <form action="{{ route('categories.destroy',$product->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('categories.show',$product->id) }}">Show</a>
+                                <form action="{{ route('currency.destroy',$product->id) }}" method="POST">
+                                    <a class="btn btn-info" href="{{ route('currency.show',$product->id) }}">Show</a>
                                     @can('product-edit')
-                                    <a class="btn btn-primary" href="{{ route('categories.edit',$product->id) }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ route('currency.edit',$product->id) }}">Edit</a>
                                     @endcan
 
 
@@ -61,7 +65,7 @@
                     </table>
 
 
-                    {!! $categories->links() !!}
+                    {!! $currency->links() !!}
 
                 </div>
             </div>

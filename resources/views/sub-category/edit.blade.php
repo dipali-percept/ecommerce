@@ -16,7 +16,7 @@
                                 {{-- <h2>Edit Product</h2> --}}
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('categories.index') }}"> Back</a>
+                                <a class="btn btn-primary" href="{{ route('sub_category.index') }}"> Back</a>
                             </div>
                         </div>
                     </div>
@@ -34,15 +34,24 @@
                     @endif
 
 
-                    <form action="{{ route('categories.update',$category->id) }}" method="POST">
+                    <form action="{{ route('sub_category.update',$sub_category->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="row">
+                        <div class="form-group">
+                                    <strong>Select Category:</strong>
+                                    <select name="category_id" id="category_id" class="form-control">
+                                        @foreach ($categories as $category)
+                                            <option value="{{$category->id}}" {{$category->id == $sub_category->category_id ? 'selected' : ''}}>{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" name="name" value="{{ $category->name }}" class="form-control" placeholder="Name">
+                                    <input type="text" name="name" value="{{ $sub_category->name }}" class="form-control" placeholder="Name">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

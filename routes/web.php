@@ -6,6 +6,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ImageGalleryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +54,10 @@ Route::group(
         Route::resource('country', CountryController::class);
         Route::resource('sub_category', SubCategoryController::class);
         Route::resource('currency', CurrencyController::class);
+        Route::resource('banner', BannerController::class);
+        Route::get('/image-gallery', [ProfileController::class, 'index']);
+        Route::post('/image-gallery', [ProfileController::class, 'upload']);
+        Route::delete('image-gallery/{id}', [ImageGalleryController::class, 'destroy']);
 
     }
 )->name('admin.');

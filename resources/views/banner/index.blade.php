@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Country') }}
+            {{ __('Banner') }}
         </h2>
     </x-slot>
 
@@ -13,16 +13,15 @@
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-left">
-                                {{-- <h2>Country</h2> --}}
+                                {{-- <h2>Banner</h2> --}}
                             </div>
                             <div class="pull-right">
-                                <!-- @can('product-create') -->
-                                <a class="btn btn-success" href="{{ route('country.create') }}"> Create New Country</a>
-                                <!-- @endcan -->
+                                @can('product-create')
+                                <a class="btn btn-success" href="{{ route('banner.create') }}"> Create New Banner</a>
+                                @endcan
                             </div>
                         </div>
                     </div>
-
 
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
@@ -30,23 +29,31 @@
                         </div>
                     @endif
 
-
                     <table class="table table-bordered">
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Title</th>
+                            <th>Image</th>
+                            <th>Status</th>
                             <th width="280px">Action</th>
                         </tr>
-                        @foreach ($countries as $product)
+                        @foreach ($banner as $product)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->start_date }}</td>
+                            <td>{{ $product->end_date }}</td>
+                            <td>{{ $product->title }}</td>
+                            <td><img src="/banner/{{ $product->image }}" height="100px" width="100px"></td>
+                            <td><a class="btn btn-warning" href="#">@if($product->is_active==1) Active @else Inactive @endif</a></td>
                             <td>
-                                <form action="{{ route('country.destroy',$product->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('country.show',$product->id) }}">Show</a>
+                                <form action="{{ route('banner.destroy',$product->id) }}" method="POST">
+                                    <a class="btn btn-info" href="{{ route('banner.show',$product->id) }}">Show</a>
                                     @can('product-edit')
-                                    <a class="btn btn-primary" href="{{ route('country.edit',$product->id) }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ route('banner.edit',$product->id) }}">Edit</a>
                                     @endcan
+
 
                                     @csrf
                                     @method('DELETE')
@@ -60,7 +67,7 @@
                     </table>
 
 
-                    {!! $countries->links() !!}
+                    {!! $banner->links() !!}
 
                 </div>
             </div>

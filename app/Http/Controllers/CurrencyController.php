@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Currency;
 
 class CurrencyController extends Controller
 {
@@ -29,7 +30,9 @@ class CurrencyController extends Controller
     public function store(Request $request)
     {
         request()->validate([
+            'code' => 'required',
             'name' => 'required',
+            'symbol' => 'required',
         ]);
 
         Currency::create($request->all());
@@ -59,7 +62,9 @@ class CurrencyController extends Controller
     public function update(Request $request, Currency $currency)
     {
         request()->validate([
+            'code' => 'required',
             'name' => 'required',
+            'symbol' => 'required',
         ]);
 
         $currency->update($request->all());

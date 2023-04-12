@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\SubCategory;
+use App\Models\Category;
 
 class SubCategoryController extends Controller
 {
@@ -30,12 +32,13 @@ class SubCategoryController extends Controller
     public function store(Request $request)
     {
         request()->validate([
+            'category_id' => 'required',
             'name' => 'required',
         ]);
 
         SubCategory::create($request->all());
 
-        return redirect()->route('sub-category.index')->with('success','Sub Category created successfully.');
+        return redirect()->route('sub_category.index')->with('success','Sub Category created successfully.');
     }
 
     /**
@@ -43,7 +46,7 @@ class SubCategoryController extends Controller
      */
     public function show(SubCategory $sub_category)
     {
-        return view('sub-category.show',compact(['categories','sub_categories']));
+        return view('sub-category.show',compact('sub_category'));
     }
 
     /**
@@ -52,7 +55,7 @@ class SubCategoryController extends Controller
     public function edit(SubCategory $sub_category)
     {
         $categories = Category::all();
-        return view('sub-category.edit',compact(['categories','sub_categories']));
+        return view('sub-category.edit',compact(['categories','sub_category']));
     }
 
     /**
@@ -66,7 +69,7 @@ class SubCategoryController extends Controller
 
         $sub_category->update($request->all());
 
-        return redirect()->route('sub-category.index')->with('success','Sub Category updated successfully');
+        return redirect()->route('sub_category.index')->with('success','Sub Category updated successfully');
     }
 
     /**
@@ -75,6 +78,6 @@ class SubCategoryController extends Controller
     public function destroy(SubCategory $sub_category)
     {
         $sub_category->delete();
-        return redirect()->route('sub-category.index')->with('success','Sub Category deleted successfully');
+        return redirect()->route('sub_category.index')->with('success','Sub Category deleted successfully');
     }
 }

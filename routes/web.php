@@ -29,9 +29,7 @@ Route::get('/', function () {
 });
 
 
-
 // ADMIN ROUTES
-
 Route::group(
     [
         'prefix' => 'admin',
@@ -55,10 +53,9 @@ Route::group(
         Route::resource('sub_category', SubCategoryController::class);
         Route::resource('currency', CurrencyController::class);
         Route::resource('banner', BannerController::class);
-        Route::get('/image-gallery', [ProfileController::class, 'index']);
-        Route::post('/image-gallery', [ProfileController::class, 'upload']);
+        Route::get('/image-gallery', [ImageGalleryController::class, 'index']);
+        Route::post('/image-gallery', [ImageGalleryController::class, 'upload']);
         Route::delete('image-gallery/{id}', [ImageGalleryController::class, 'destroy']);
-
     }
 )->name('admin.');
 

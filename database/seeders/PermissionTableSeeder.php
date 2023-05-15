@@ -30,6 +30,22 @@ class PermissionTableSeeder extends Seeder
             'post-create',
             'post-edit',
             'post-delete',
+            'user-list',
+            'user-create',
+            'user-edit',
+            'user-delete',
+            'banner-list',
+            'banner-create',
+            'banner-edit',
+            'banner-delete',
+            'country-list',
+            'country-create',
+            'country-edit',
+            'country-delete',
+            'currency-list',
+            'currency-create',
+            'currency-edit',
+            'currency-delete',
          ];
 
          foreach ($permissions as $permission) {

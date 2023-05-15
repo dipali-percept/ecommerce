@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title', 70);
             $table->string('description', 320);
             $table->text('body');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')

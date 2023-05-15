@@ -44,19 +44,24 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-                                    <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                        {!! Form::close() !!}
+                                    <form action="{{ route('users.destroy',$user->id) }}" method="POST">
+                                        <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
+                                        @can('user-edit')
+                                        <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+                                        @endcan
+
+                                        @csrf
+                                        @method('DELETE')
+                                        @can('user-delete')
+                                        <x-danger-button>{{ __('Delete') }}</x-danger-button>
+                                        @endcan
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                     </table>
 
                     {!! $data->render() !!}
-
-
 
                 </div>
             </div>

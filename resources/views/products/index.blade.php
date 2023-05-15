@@ -19,17 +19,16 @@
                                 @can('product-create')
                                 <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
                                 @endcan
+                                <a class="btn btn-info" href="javascript:void(0);"> Filter</a>
                             </div>
                         </div>
                     </div>
-
 
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-
 
                     <table class="table table-bordered">
                         <tr>
@@ -59,13 +58,11 @@
                                     @can('product-delete')
                                     <x-danger-button>{{ __('Delete') }}</x-danger-button>
                                     @endcan
-
                                 </form>
                             </td>
                         </tr>
                         @endforeach
                     </table>
-
 
                     {!! $products->links() !!}
 
@@ -74,4 +71,3 @@
         </div>
     </div>
 </x-app-layout>
-

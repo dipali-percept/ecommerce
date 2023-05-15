@@ -31,17 +31,13 @@ class ImageGalleryController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-
         $input['image'] = time().'.'.$request->image->getClientOriginalExtension();
         $request->image->move(public_path('images'), $input['image']);
-
 
         $input['title'] = $request->title;
         ImageGallery::create($input);
 
-
-    	return back()
-    		->with('success','Image Uploaded successfully.');
+    	return back()->with('success','Image Uploaded successfully.');
     }
 
 

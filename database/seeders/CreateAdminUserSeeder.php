@@ -37,6 +37,5 @@ class CreateAdminUserSeeder extends Seeder
             Role::create(['name' => $r]);
         }
 
-
     }
 }

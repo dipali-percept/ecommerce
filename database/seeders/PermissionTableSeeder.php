@@ -46,10 +46,18 @@ class PermissionTableSeeder extends Seeder
             'currency-create',
             'currency-edit',
             'currency-delete',
-         ];
+            'order-list',
+            'order-create',
+            'order-edit',
+            'order-delete',
+            'order-detail-list',
+            'order-detail-create',
+            'order-detail-edit',
+            'order-detail-delete',
+        ];
 
-         foreach ($permissions as $permission) {
-              Permission::create(['name' => $permission]);
-         }
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
     }
 }

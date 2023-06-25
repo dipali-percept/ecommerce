@@ -56,6 +56,8 @@ Route::group(
         Route::get('/image-gallery', [ImageGalleryController::class, 'index']);
         Route::post('/image-gallery', [ImageGalleryController::class, 'upload']);
         Route::delete('image-gallery/{id}', [ImageGalleryController::class, 'destroy']);
+        Route::resource('orders', OrderController::class);
+        Route::resource('order_status', OrderStatusController::class);
     }
 )->name('admin.');
 

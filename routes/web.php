@@ -30,6 +30,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/master', function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/admin_profile', function () {
+    return view('admin.profile');
+});
+
 
 // ADMIN ROUTES
 Route::group(
@@ -39,7 +47,7 @@ Route::group(
     ], function () {
 
         Route::get('/dashboard', function () {
-            return view('dashboard');
+            return view('admin.dashboard');
         })->name('dashboard');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -60,15 +68,18 @@ Route::group(
         Route::delete('image-gallery/{id}', [ImageGalleryController::class, 'destroy']);
         Route::resource('orders', OrderController::class);
         Route::resource('order_status', OrderStatusController::class);
+
+        Route::resource('posts', PostController::class);
+
     }
 )->name('admin.');
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('users', UserController::class)->withoutMiddleware('admin');
-Route::resource('posts', PostController::class)->middleware(['auth', 'user']);
+// Route::resource('users', UserController::class)->withoutMiddleware('admin');
+// Route::resource('posts', PostController::class)->middleware(['auth', 'user']);
 
 require __DIR__.'/auth.php';

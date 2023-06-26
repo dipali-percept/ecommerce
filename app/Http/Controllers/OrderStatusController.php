@@ -30,13 +30,12 @@ class OrderStatusController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'code' => 'required',
             'name' => 'required',
         ]);
 
         OrderStatus::create($request->all());
 
-        return redirect()->route('order-status.index')->with('success','Order status created successfully.');
+        return redirect()->route('order_status.index')->with('success','Order status created successfully.');
     }
 
     /**
@@ -61,13 +60,12 @@ class OrderStatusController extends Controller
     public function update(Request $request, OrderStatus $order_status)
     {
         request()->validate([
-            'code' => 'required',
             'name' => 'required',
         ]);
 
         $order_status->update($request->all());
 
-        return redirect()->route('order-status.index')->with('success','Order status updated successfully');
+        return redirect()->route('order_status.index')->with('success','Order status updated successfully');
     }
 
     /**
@@ -76,6 +74,6 @@ class OrderStatusController extends Controller
     public function destroy(OrderStatus $order_status)
     {
         $order_status->delete();
-        return redirect()->route('order-status.index')->with('success','Order status deleted successfully');
+        return redirect()->route('order_status.index')->with('success','Order status deleted successfully');
     }
 }

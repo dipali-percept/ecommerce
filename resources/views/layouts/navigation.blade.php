@@ -58,6 +58,14 @@
                         {{ __('Manage Banner') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('order_status.index')" :active="request()->routeIs('order_status*')">
+                        {{ __('Manage Order Status') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders*')">
+                        {{ __('Manage Orders') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

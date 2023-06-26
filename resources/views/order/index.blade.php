@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Order Status') }}
+            {{ __('Order') }}
         </h2>
     </x-slot>
 
@@ -10,18 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2>Order Status</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                <!-- @can('product-create') -->
-                                <a class="btn btn-success" href="{{ route('order_status.create') }}"> Create New Order status</a>
-                                <!-- @endcan -->
-                            </div>
-                        </div>
-                    </div>
+
 
 
                     @if ($message = Session::get('success'))
@@ -34,18 +23,24 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>User Name</th>
+                            <th>Price</th>
+                            <th>Order Date</th>
                             <th width="280px">Action</th>
                         </tr>
-                        @foreach ($countries as $product)
+                        {{-- @foreach ($orders as $item)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $product->name }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->name }}</td>
                             <td>
-                                <form action="{{ route('order_status.destroy',$product->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('order_status.show',$product->id) }}">Show</a>
+                                <form action="{{ route('orders.destroy',$item->id) }}" method="POST">
+                                    <a class="btn btn-info" href="{{ route('orders.show',$item->id) }}">Show</a>
                                     @can('product-edit')
-                                    <a class="btn btn-primary" href="{{ route('order_status.edit',$product->id) }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ route('orders.edit',$item->id) }}">Edit</a>
                                     @endcan
 
                                     @csrf
@@ -56,11 +51,11 @@
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
+                        @endforeach --}}
                     </table>
 
 
-                    {!! $countries->links() !!}
+                    {!! $orders->links() !!}
 
                 </div>
             </div>

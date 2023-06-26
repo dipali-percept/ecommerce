@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add New Category') }}
+            {{ __('Add New Order Status') }}
         </h2>
     </x-slot>
 
@@ -13,10 +13,10 @@
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-left">
-                                {{-- <h2>Add New Category</h2> --}}
+                                {{-- <h2>Add New Order Status</h2> --}}
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('country.index') }}"> Back</a>
+                                <a class="btn btn-primary" href="{{ route('order_status.index') }}"> Back</a>
                             </div>
                         </div>
                     </div>
@@ -34,17 +34,9 @@
                     @endif
 
 
-                    <form action="{{ route('country.store') }}" method="POST">
+                    <form action="{{ route('order_status.store') }}" method="POST">
                         @csrf
-
-
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Code:</strong>
-                                    <input type="text" name="code" class="form-control" placeholder="Code">
-                                </div>
-                            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>

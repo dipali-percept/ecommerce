@@ -16,19 +16,33 @@
                                 {{-- <h2> Show Order Status</h2> --}}
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('order_status.index') }}"> Back</a>
+                                <a class="btn btn-primary" href="{{ route('orders.index') }}"> Back</a>
                             </div>
                         </div>
                     </div>
 
 
                     <div class="row">
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Name:</strong>
-                                {{ $order_status->name }}
+                                <strong>User Name:</strong>
+                                {{ $orders->user->name }}
                             </div>
                         </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Product Name:</strong>
+                                {{ $orders->product->name }}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Image:</strong>
+                                <img src="/banner/{{ $banner->image }}" height="200px" width="200px">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

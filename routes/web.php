@@ -11,6 +11,8 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ImageGalleryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderStatusController;
 use Illuminate\Support\Facades\Route;
 
 /*

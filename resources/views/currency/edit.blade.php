@@ -1,71 +1,79 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Currency') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2>Edit Currency</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('currency.index') }}"> Back</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-
-                    <form action="{{ route('currency.update',$currency->id) }}" method="POST">
+@section('admin_content')
+<div class="pagetitle">
+	<h1>Edit Currency</h1>
+		<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+			<li class="breadcrumb-item"><a href="{{route('currency.index')}}">Currency</a></li>
+			<li class="breadcrumb-item active">Edit Currency</li>
+		</ol>
+	</nav>
+</div><!-- End Page Title -->
+<section class="section">
+	<div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Currency Form</h5>
+                    <!-- General Form Elements -->
+                    <form method="POST" id="custom_form" action="{{ route('currency.update', $currency->id) }}">
                         @csrf
-                        @method('PUT')
-
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Code:</strong>
-                                    <input type="text" name="code" value="{{ $currency->code }}" class="form-control" placeholder="Code">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Name:</strong>
-                                    <input type="text" name="name" value="{{ $currency->name }}" class="form-control" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Symbol:</strong>
-                                    <input type="text" name="symbol" value="{{ $currency->symbol }}" class="form-control" placeholder="Symbol">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <x-primary-button>{{ __('Submit') }}</x-primary-button>
+                        @method('patch')
+                        <input type="hidden" name="id" value="{{$currency->id}}">
+                        <div class="row mb-3">
+                            <label for="code" class="col-sm-2 col-form-label">Code</label>
+                            <div class="col-sm-10">
+                                <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code', $currency->code) }}" autocomplete="code" autofocus>
+                                @error('code')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
                         </div>
-
-
-                    </form>
-
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $currency->name) }}" autocomplete="name" autofocus>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="symbol" class="col-sm-2 col-form-label">Symbol</label>
+                            <div class="col-sm-10">
+                                <input id="symbol" type="text" class="form-control @error('symbol') is-invalid @enderror" name="symbol" value="{{ old('symbol', $currency->symbol) }}" autocomplete="symbol" autofocus>
+                                @error('symbol')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{{route('currency.index')}}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
                 </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+	</div>
+</section>
+@endsection
+
+
+@section('custom_script')
+	<script>
+		$(document).ready(function() {
+			$("#custom_form").validate({
+				rules: {
+					code: {required: true},
+                    name: {required: true},
+                    symbol: {required: true},
+				},
+			});
+		});
+	</script>
+@endsection

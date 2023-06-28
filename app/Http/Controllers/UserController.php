@@ -18,8 +18,17 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
+        $users = User::orderBy('id','DESC')->get();
+        $userArr = [];
+        foreach($users as $value){
+            foreach($value->getRoleNames() as $v){
+                if($v != 'Admin'){
+                    $userArr[] = $value->id;
+                }
+            }
+        }
+        $data = User::whereIn('id', $userArr)->get();
+        return view('users.index',compact('data'));
     }
 
     /**
@@ -41,6 +50,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'number' => ['required'],
             'roles' => ['required']
         ]);
 

@@ -1,79 +1,130 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit New User') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2>Edit New User</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
-
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Name:</strong>
-                                {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+@section('admin_content')
+<div class="pagetitle">
+	<h1>Edit User</h1>
+		<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+			<li class="breadcrumb-item"><a href="{{route('users.index')}}">Users</a></li>
+			<li class="breadcrumb-item active">Edit User</li>
+		</ol>
+	</nav>
+</div><!-- End Page Title -->
+<section class="section">
+	<div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User Form</h5>
+                    <!-- General Form Elements -->
+                    <form method="POST" id="custom_form" action="{{ route('users.update', $user->id) }}">
+                        @csrf
+                        @method('patch')
+                        <input type="hidden" name="id" value="{{$user->id}}">
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $user->name) }}" autocomplete="name" autofocus>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Email:</strong>
-                                {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+                        <div class="row mb-3">
+                            <label for="email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" autocomplete="email" autofocus>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Password:</strong>
-                                {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+                        <div class="row mb-3">
+                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Confirm Password:</strong>
-                                {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
+                        <div class="row mb-3">
+                            <label for="password_confirmation" class="col-sm-2 col-form-label">Confirm Password</label>
+                            <div class="col-sm-10">
+                                <input id="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" autocomplete="password_confirmation">
+                                @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Role:</strong>
-                                {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+                        <div class="row mb-3">
+                            <label for="number" class="col-sm-2 col-form-label">Number</label>
+                            <div class="col-sm-10">
+                                <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number', $user->number) }}" autocomplete="number" autofocus>
+                                @error('number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <x-primary-button>{{ __('Submit') }}</x-primary-button>
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Profile Image</label>
+                            <div class="col-sm-10">
+                            <input class="form-control" type="file" id="formFile">
+                            </div>
                         </div>
-                    </div>
-
-                    {!! Form::close() !!}
-
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Select Role</label>
+                            <div class="col-sm-10">
+                                <select name="roles" id="roles" class="form-control p_input @error('roles') is-invalid @enderror">
+                                    <option value="">Select Role</option>
+                                    @foreach ($roles as $value)
+                                    @if($value != 'Admin')
+                                        <option value="{{$value}}" {{ old('roles', $user->roles->pluck('name')[0]) == $value ? 'selected' : '' }}>{{ucfirst($value)}}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                                @error('roles')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{{route('users.index')}}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
                 </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+	</div>
+</section>
+@endsection
+
+
+@section('custom_script')
+	<script>
+		$(document).ready(function() {
+			$("#custom_form").validate({
+				rules: {
+					name: {required: true},
+                    email: {required: true},
+                    roles: {required: true},
+                    number: {required: true},
+				},
+			});
+		});
+	</script>
+@endsection

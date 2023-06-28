@@ -1,52 +1,60 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Show User') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+@section('admin_content')
 
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2> Show User</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-                            </div>
-                        </div>
-                    </div>
+<div class="pagetitle">
+    <h1>Show User</h1>
+		<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+			<li class="breadcrumb-item"><a href="{{route('users.index')}}">Users</a></li>
+			<li class="breadcrumb-item active">Show User</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Name:</strong>
-                                {{ $user->name }}
+
+<section class="section profile">
+    <div class="row">
+
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body pt-3">
+                    <div class="tab-content pt-2">
+                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <h5 class="card-title">User Details</h5>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label ">Name</div>
+                                <div class="col-lg-9 col-md-8">{{$user->name}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Email</div>
+                                <div class="col-lg-9 col-md-8">{{$user->email}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Role</div>
+                                <div class="col-lg-9 col-md-8">{{$user->name}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label">Number</div>
+                                <div class="col-lg-9 col-md-8">{{$user->number}}</div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Email:</strong>
-                                {{ $user->email }}
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Roles:</strong>
-                                @if(!empty($user->getRoleNames()))
-                                    @foreach($user->getRoleNames() as $v)
-                                        <span class="badge rounded-pill bg-dark">{{ $v }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                    </div><!-- End Bordered Tabs -->
                 </div>
             </div>
         </div>
+
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                    <img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
+                    <h2>{{$user->name}}</h2>
+                    <h3>{{$user->email}}</h3>
+                </div>
+            </div>
+        </div>
+
     </div>
-</x-app-layout>
+</section>
+@endsection

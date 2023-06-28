@@ -11,67 +11,67 @@
         <li class="nav-heading">Management</li>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('users/*') ? '' : 'collapsed' }}" href="{{route('users.index')}}">
+            <a class="nav-link {{ request()->is('admin/users*') ? '' : 'collapsed' }}" href="{{route('users.index')}}">
                 <i class="bi bi-people"></i><span>Users</span>
             </a>
         </li><!-- End users Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('roles/*') ? '' : 'collapsed' }}" href="{{route('roles.index')}}">
+            <a class="nav-link {{ request()->is('admin/roles*') ? '' : 'collapsed' }}" href="{{route('roles.index')}}">
                 <i class="bi bi-receipt"></i><span>Roles</span>
             </a>
         </li><!-- End roles Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('products/*') ? '' : 'collapsed' }}" href="{{route('products.index')}}">
+            <a class="nav-link {{ request()->is('admin/products*') ? '' : 'collapsed' }}" href="{{route('products.index')}}">
                 <i class="bi bi-shop"></i><span>Products</span>
             </a>
         </li><!-- End products Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('categories/*') ? '' : 'collapsed' }}" href="{{route('categories.index')}}">
+            <a class="nav-link {{ request()->is('admin/categories*') ? '' : 'collapsed' }}" href="{{route('categories.index')}}">
                 <i class="bi bi-tag"></i><span>Category</span>
             </a>
         </li><!-- End categories Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('sub_category/*') ? '' : 'collapsed' }}" href="{{route('sub_category.index')}}">
+            <a class="nav-link {{ request()->is('admin/sub_category*') ? '' : 'collapsed' }}" href="{{route('sub_category.index')}}">
                 <i class="bi bi-text-indent-left"></i><span>Sub Category</span>
             </a>
         </li><!-- End sub category Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('posts/*') ? '' : 'collapsed' }}" href="{{route('posts.index')}}">
+            <a class="nav-link {{ request()->is('admin/posts*') ? '' : 'collapsed' }}" href="{{route('posts.index')}}">
                 <i class="bi bi-view-list"></i><span>Posts</span>
             </a>
         </li><!-- End posts Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('country/*') ? '' : 'collapsed' }}" href="{{route('country.index')}}">
+            <a class="nav-link {{ request()->is('admin/country*') ? '' : 'collapsed' }}" href="{{route('country.index')}}">
                 <i class="bi bi-geo-alt"></i><span>Country</span>
             </a>
         </li><!-- End country Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('currency/*') ? '' : 'collapsed' }}" href="{{route('currency.index')}}">
+            <a class="nav-link {{ request()->is('admin/currency*') ? '' : 'collapsed' }}" href="{{route('currency.index')}}">
                 <i class="bi bi-currency-dollar"></i><span>Currency</span>
             </a>
         </li><!-- End currency Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('banner/*') ? '' : 'collapsed' }}" href="{{route('banner.index')}}">
+            <a class="nav-link {{ request()->is('admin/banner*') ? '' : 'collapsed' }}" href="{{route('banner.index')}}">
                 <i class="bi bi-hdd-stack"></i><span>Banner</span>
             </a>
         </li><!-- End banner Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('order_status/*') ? '' : 'collapsed' }}" href="{{route('order_status.index')}}">
+            <a class="nav-link {{ request()->is('admin/order_status*') ? '' : 'collapsed' }}" href="{{route('order_status.index')}}">
                 <i class="bi bi-sticky"></i><span>Order Status</span>
             </a>
         </li><!-- End order_status Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('orders/*') ? '' : 'collapsed' }}" href="{{route('orders.index')}}">
+            <a class="nav-link {{ request()->is('admin/orders*') ? '' : 'collapsed' }}" href="{{route('orders.index')}}">
                 <i class="bi bi-minecart"></i><span>Orders</span>
             </a>
         </li><!-- End orders Nav -->

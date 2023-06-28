@@ -1,64 +1,78 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Role Management') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+@section('admin_content')
+	<div class="pagetitle">
+		<h1>Manage Roles</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+				<li class="breadcrumb-item active">Roles</li>
+			</ol>
+		</nav>
+	</div><!-- End Page Title -->
 
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2>Role Management</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                            @can('role-create')
-                                <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
-                                @endcan
-                            </div>
+	<section class="section">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Roles List</h5>
+                        <div class="add_button">
+                            <a href="{{route('roles.create')}}">
+                                <button type="button" class="btn btn-primary">Add Role</button>
+                            </a>
                         </div>
-                    </div>
 
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{$message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
 
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th width="280px">Action</th>
-                        </tr>
+                        @if ($message = Session::get('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{$message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
 
-                        @foreach ($roles as $key => $role)
-                        <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $role->name }}</td>
-                            <td>
-                                <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
-                                @can('role-edit')
-                                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
-                                @endcan
-                                @can('role-delete')
-                                    {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                    {!! Form::close() !!}
-                                @endcan
-                            </td>
-                        </tr>
-                        @endforeach
+						<!-- Table with stripped rows -->
+						<table class="table datatable">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Name</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($roles as $key => $role)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $role->name }}</td>
+                                        <td>
+                                            <form action="{{ route('roles.destroy',$role->id) }}" method="POST">
+                                                <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}"><i class="bi bi-eye"></i></a>
+                                                @can('role-edit')
+                                                <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}"><i class="bi bi-pencil"></i></a>
+                                                @endcan
 
-                    </table>
-                    {!! $roles->render() !!}
-
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+                                                @csrf
+                                                @method('DELETE')
+                                                @can('role-delete')
+                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                @endcan
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+							</tbody>
+						</table>
+						<!-- End Table with stripped rows -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+@endsection

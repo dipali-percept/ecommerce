@@ -1,49 +1,46 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Show Currency') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+@section('admin_content')
 
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2> Show Currency</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('currency.index') }}"> Back</a>
-                            </div>
-                        </div>
-                    </div>
+<div class="pagetitle">
+    <h1>Show Currency</h1>
+		<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+			<li class="breadcrumb-item"><a href="{{route('currency.index')}}">Currency</a></li>
+			<li class="breadcrumb-item active">Show Currency</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
 
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Code:</strong>
-                                {{ $currency->code }}
+<section class="section profile">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body pt-3">
+                    <div class="tab-content pt-2">
+                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <h5 class="card-title">Currency Details</h5>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label ">Code</div>
+                                <div class="col-lg-9 col-md-8">{{$currency->code}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label ">Name</div>
+                                <div class="col-lg-9 col-md-8">{{$currency->name}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label ">Symbol</div>
+                                <div class="col-lg-9 col-md-8">{{$currency->symbol}}</div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Name:</strong>
-                                {{ $currency->name }}
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Symbol:</strong>
-                                {{ $currency->symbol }}
-                            </div>
-                        </div>
-                    </div>
+                    </div><!-- End Bordered Tabs -->
                 </div>
             </div>
         </div>
+
     </div>
-</x-app-layout>
+</section>
+@endsection

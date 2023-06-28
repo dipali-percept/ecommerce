@@ -12,8 +12,8 @@ class OrderStatusController extends Controller
      */
     public function index()
     {
-        $countries = OrderStatus::latest()->paginate(10);
-        return view('order-status.index',compact('countries'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $orderstatus = OrderStatus::all();
+        return view('order-status.index',compact('orderstatus'));
     }
 
     /**

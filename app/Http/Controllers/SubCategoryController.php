@@ -13,8 +13,8 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        $sub_categories = SubCategory::latest()->paginate(10);
-        return view('sub-category.index',compact('sub_categories'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $sub_categories = SubCategory::all();
+        return view('sub-category.index',compact('sub_categories'));
     }
 
     /**

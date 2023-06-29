@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Banner;
+use Illuminate\Support\Facades\File;
 
 class BannerController extends Controller
 {
@@ -12,8 +13,22 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banner = Banner::latest()->paginate(10);
-        return view('banner.index',compact('banner'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $banners = Banner::all();
+        return view('banner.index',compact('banners'));
+    }
+
+    public function changeStatus($id)
+    {
+        $banner = Banner::find($id);
+
+        if($banner->is_active == 1){
+            $banner->is_active = 0;
+        } else {
+            $banner->is_active = 1;
+        }
+        $banner->touch();
+        return redirect()->route('banner.index')->with('success','Banner status changed.');
+
     }
 
     /**
@@ -31,18 +46,17 @@ class BannerController extends Controller
     {
         $request->validate([
             'start_date' => 'required',
-            'end_date' => 'required',
+            'end_date'    => 'required|after:start_date',
             'title' => 'required',
             'description' => 'required',
             'image' => 'required',
-            // 'is_active' => 'required',
         ]);
 
         $input = $request->all();
 
         $image = $request->image;
         $imageName = time().'.'.$image->getClientOriginalExtension();
-        $destination = public_path('banner');
+        $destination = public_path('images/banner');
         $image->move($destination, $imageName);
 
         $input['image'] = $imageName;
@@ -75,8 +89,8 @@ class BannerController extends Controller
     public function update(Request $request, Banner $banner)
     {
         $request->validate([
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_date'  => 'required',
+            'end_date'    => 'required|after:start_date',
             'title' => 'required',
             'description' => 'required',
             // 'image' => 'required',
@@ -85,15 +99,18 @@ class BannerController extends Controller
 
         $input = $request->all();
 
-        if ($image = $request->file('image')) {
-            $path = public_path('banner').'\\'.$product->image;
+        if ($request->file('image')) {
+            $image = $input['image'];
+            $path = public_path('images/banner').'\\'.$banner->image;
             if(File::exists($path)){
                 File::delete($path);
             }
             $imageName = time().'.'.$image->getClientOriginalExtension();
-            $destination = public_path('banner');
+            $destination = public_path('images/banner');
             $image->move($destination, $imageName);
             $input['image'] = $imageName;
+        } else {
+            $input['image'] = $banner->image;
         }
 
         $banner->update($input);

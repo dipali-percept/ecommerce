@@ -1,73 +1,76 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Sub Category') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+@section('admin_content')
+	<div class="pagetitle">
+		<h1>Manage Sub Category</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+				<li class="breadcrumb-item active">Sub Category</li>
+			</ol>
+		</nav>
+	</div><!-- End Page Title -->
 
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2>Sub Category</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                @can('product-create')
-                                <a class="btn btn-success" href="{{ route('sub_category.create') }}"> Create New Sub Category</a>
-                                @endcan
-                            </div>
+	<section class="section">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Sub Category List</h5>
+                        <div class="add_button">
+                            <a href="{{route('sub_category.create')}}">
+                                <button type="button" class="btn btn-primary">Add Sub Category</button>
+                            </a>
                         </div>
-                    </div>
 
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{$message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
 
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+                        @if ($message = Session::get('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{$message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
 
+						<!-- Table with stripped rows -->
+						<table class="table datatable">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Category</th>
+                                    <th scope="col">Name</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($sub_categories as $key => $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->category->name }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>
+                                            <form action="{{ route('sub_category.destroy',$item->id) }}" method="POST">
+                                                <a class="btn btn-info" href="{{ route('sub_category.show',$item->id) }}"><i class="bi bi-eye"></i></a>
+                                                <a class="btn btn-primary" href="{{ route('sub_category.edit',$item->id) }}"><i class="bi bi-pencil"></i></a>
 
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>No</th>
-                            <th>Category</th>
-                            <th>Name</th>
-                            <th width="280px">Action</th>
-                        </tr>
-                        @foreach ($sub_categories as $product)
-                        <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $product->category->name }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td>
-                                <form action="{{ route('sub_category.destroy',$product->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('sub_category.show',$product->id) }}">Show</a>
-                                    @can('product-edit')
-                                    <a class="btn btn-primary" href="{{ route('sub_category.edit',$product->id) }}">Edit</a>
-                                    @endcan
-
-
-                                    @csrf
-                                    @method('DELETE')
-                                    @can('product-delete')
-                                    <x-danger-button>{{ __('Delete') }}</x-danger-button>
-                                    @endcan
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
-
-
-                    {!! $sub_categories->links() !!}
-
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
-
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+							</tbody>
+						</table>
+						<!-- End Table with stripped rows -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+@endsection

@@ -1,83 +1,107 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Banner') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2>Edit Banner</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('banner.index') }}"> Back</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form action="{{ route('banner.update',$banner->id) }}" method="POST" enctype="multipart/form-data">
+@section('admin_content')
+<div class="pagetitle">
+	<h1>Edit Banner</h1>
+		<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+			<li class="breadcrumb-item"><a href="{{route('banner.index')}}">Banner</a></li>
+			<li class="breadcrumb-item active">Edit Banner</li>
+		</ol>
+	</nav>
+</div><!-- End Page Title -->
+<section class="section">
+	<div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Banner Form</h5>
+                    <!-- General Form Elements -->
+                    <form method="POST" id="custom_form" action="{{ route('banner.update', $banner->id) }}" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
-
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Start Date:</strong>
-                                    <input type="date" name="start_date" value="{{ $banner->start_date }}" class="form-control" placeholder="Start Date">
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>End Date:</strong>
-                                    <input type="date" name="end_date" value="{{ $banner->end_date }}" class="form-control" placeholder="End Date">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Title:</strong>
-                                    <input type="text" name="title" value="{{ $banner->title }}" class="form-control" placeholder="Title">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Description:</strong>
-                                    <input type="text" name="description" value="{{ $banner->description }}" class="form-control" placeholder="Description">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Image:</strong>
-                                    <input type="file" name="image" class="form-control" placeholder="Image">
-                                    <img src="/banner/{{ $banner->image }}" height="200px" width="200px">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <x-primary-button>{{ __('Submit') }}</x-primary-button>
+                        @method('patch')
+                        <input type="hidden" name="id" value="{{$banner->id}}">
+                        <div class="row mb-3">
+                            <label for="start_date" class="col-sm-2 col-form-label">Start Date</label>
+                            <div class="col-sm-10">
+                                <input id="start_date" type="date" class="form-control @error('start_date') is-invalid @enderror" name="start_date" value="{{ old('start_date', $banner->start_date) }}" autocomplete="start_date" autofocus>
+                                @error('start_date')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
                         </div>
-
-
-                    </form>
-
+                        <div class="row mb-3">
+                            <label for="end_date" class="col-sm-2 col-form-label">End Date</label>
+                            <div class="col-sm-10">
+                                <input id="end_date" type="date" class="form-control @error('end_date') is-invalid @enderror" name="end_date" value="{{ old('end_date', $banner->end_date) }}" autocomplete="end_date">
+                                @error('end_date')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="title" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $banner->title) }}" autocomplete="title">
+                                @error('title')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="description" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description', $banner->description) }}" autocomplete="description">
+                                @error('description')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="image" class="col-sm-2 col-form-label">Upload Image</label>
+                            <div class="col-sm-10">
+                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+                                <img src="{{asset('images/banner')}}/{{ $banner->image }}" height="100px" width="100px">
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{{route('banner.index')}}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
                 </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+	</div>
+</section>
+@endsection
+
+
+@section('custom_script')
+	<script>
+		$(document).ready(function() {
+            jQuery.validator.addMethod("greaterThan", function(value, element, params) {
+                if (!/Invalid|NaN/.test(new Date(value))) {
+                    return new Date(value) > new Date($(params).val());
+                }
+                return isNaN(value) && isNaN($(params).val()) || (Number(value) > Number($(params).val()));
+            },'The end date field must be a date after start date.');
+
+			$("#custom_form").validate({
+				rules: {
+					start_date: {required: true},
+                    end_date: {required: true, greaterThan: "#start_date"},
+                    title: {required: true},
+                    description: {required: true},
+                    image: {required: true},
+				},
+			});
+		});
+	</script>
+@endsection

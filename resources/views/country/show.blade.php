@@ -1,43 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Show Country') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+@section('admin_content')
 
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2> Show Country</h2> --}}
+<div class="pagetitle">
+    <h1>Show Country</h1>
+		<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+			<li class="breadcrumb-item"><a href="{{ route('country.index') }}">Country</a></li>
+			<li class="breadcrumb-item active">Show Country</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+
+<section class="section profile">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body pt-3">
+                    <div class="tab-content pt-2">
+                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <h5 class="card-title">Country Details</h5>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label ">Code</div>
+                                <div class="col-lg-9 col-md-8">{{$country->code}}</div>
                             </div>
-                            <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('country.index') }}"> Back</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Code:</strong>
-                                {{ $country->code }}
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Name:</strong>
-                                {{ $country->name }}
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label ">Name</div>
+                                <div class="col-lg-9 col-md-8">{{$country->name}}</div>
                             </div>
                         </div>
-                    </div>
+                    </div><!-- End Bordered Tabs -->
                 </div>
             </div>
         </div>
+
     </div>
-</x-app-layout>
+</section>
+@endsection

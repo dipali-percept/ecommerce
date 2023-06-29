@@ -20,8 +20,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $countries = Country::latest()->paginate(10);
-        return view('country.index',compact('countries'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $countries = Country::all();
+        return view('country.index',compact('countries'));
     }
 
     /**

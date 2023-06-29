@@ -63,6 +63,7 @@ Route::group(
         Route::resource('sub_category', SubCategoryController::class);
         Route::resource('currency', CurrencyController::class);
         Route::resource('banner', BannerController::class);
+        Route::get('/banner/{id}/status', [BannerController::class, 'changeStatus'])->name('banner.changeStatus');
         Route::get('/image-gallery', [ImageGalleryController::class, 'index']);
         Route::post('/image-gallery', [ImageGalleryController::class, 'upload']);
         Route::delete('image-gallery/{id}', [ImageGalleryController::class, 'destroy']);

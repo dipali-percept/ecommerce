@@ -74,9 +74,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Profile Image</label>
+                            <label for="profile_image" class="col-sm-2 col-form-label">Profile Image</label>
                             <div class="col-sm-10">
-                            <input class="form-control" type="file" id="formFile">
+                                <input id="profile_image" type="file" class="form-control @error('profile_image') is-invalid @enderror" name="profile_image" value="{{ old('profile_image') }}" autocomplete="profile_image">
+                                @error('profile_image')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3">

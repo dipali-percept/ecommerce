@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h5 class="card-title">User Form</h5>
                     <!-- General Form Elements -->
-                    <form method="POST" id="custom_form" action="{{ route('users.update', $user->id) }}">
+                    <form method="POST" id="custom_form" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
                         <input type="hidden" name="id" value="{{$user->id}}">
@@ -76,9 +76,13 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Profile Image</label>
+                            <label for="profile_image" class="col-sm-2 col-form-label">Profile Image</label>
                             <div class="col-sm-10">
-                            <input class="form-control" type="file" id="formFile">
+                                <input id="profile_image" type="file" class="form-control @error('profile_image') is-invalid @enderror" name="profile_image">
+                                <img src="{{asset('images/user')}}/{{ $user->profile_image }}" height="100px" width="100px">
+                                @error('profile_image')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3">

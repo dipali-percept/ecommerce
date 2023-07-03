@@ -42,7 +42,8 @@
 							<thead>
 								<tr>
 									<th scope="col">#</th>
-									<th scope="col">Name</th>
+									<th scope="col">Profile Image</th>
+                                    <th scope="col">Name</th>
 									<th scope="col">Email</th>
 									<th scope="col">Roles</th>
 									<th scope="col">Action</th>
@@ -52,6 +53,7 @@
 								@foreach ($data as $key => $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td><img src="{{asset('images/user')}}/{{ $user->profile_image }}" height="100px" width="100px"></td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>

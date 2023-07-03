@@ -57,6 +57,8 @@ Route::group(
         Route::resource('roles', RoleController::class);
         Route::resource('users', UserController::class)->middleware('admin');
         Route::resource('products', ProductController::class);
+        Route::post('/products/getSubCategory', [ProductController::class, 'getSubCategory'])->name('products.getSubCategory');
+        Route::get('/products/deleteImage/{product_id}/{image_id}', [ProductController::class, 'deleteImage'])->name('products.deleteImage');
         Route::resource('categories', CategoryController::class);
         Route::resource('posts', PostController::class);
         Route::resource('country', CountryController::class);

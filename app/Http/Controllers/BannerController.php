@@ -123,6 +123,10 @@ class BannerController extends Controller
      */
     public function destroy(Banner $banner)
     {
+        $path = public_path('images/banner').'\\'.$banner->image;
+        if(File::exists($path)){
+            File::delete($path);
+        }
         $banner->delete();
         return redirect()->route('banner.index')->with('success','Banner deleted successfully');
     }

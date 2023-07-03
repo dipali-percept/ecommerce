@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
@@ -45,7 +46,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
@@ -56,6 +56,17 @@ class UserController extends Controller
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+
+        if($request->profile_image){
+            $image = $request->profile_image;
+
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $destination = public_path('images/user');
+            $image->move($destination, $imageName);
+
+            $input['profile_image'] = $imageName;
+        }
+
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
@@ -104,6 +115,19 @@ class UserController extends Controller
         }
 
         $user = User::find($id);
+
+        if ($request->file('profile_image')) {
+            $image = $input['profile_image'];
+            $path = public_path('images/user').'\\'.$user->profile_image;
+            if(File::exists($path)){
+                File::delete($path);
+            }
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $destination = public_path('images/user');
+            $image->move($destination, $imageName);
+            $input['profile_image'] = $imageName;
+        }
+
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
@@ -118,8 +142,12 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        User::find($id)->delete();
-        return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+        $user = User::find($id);
+        $path = public_path('images/user').'\\'.$user->image;
+        if(File::exists($path)){
+            File::delete($path);
+        }
+        $user->delete();
+        return redirect()->route('users.index')->with('success','User deleted successfully');
     }
 }

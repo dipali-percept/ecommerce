@@ -1,74 +1,84 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Post') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2>Edit Post</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-primary" href="{{ route('posts.index') }}"> Back</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-
-                    <form action="{{ route('posts.update',$post->id) }}" method="POST">
+@section('admin_content')
+<div class="pagetitle">
+	<h1>Edit Post</h1>
+		<nav>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+			<li class="breadcrumb-item"><a href="{{route('posts.index')}}">Post</a></li>
+			<li class="breadcrumb-item active">Edit Post</li>
+		</ol>
+	</nav>
+</div><!-- End Page Title -->
+<section class="section">
+	<div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Post Form</h5>
+                    <!-- General Form Elements -->
+                    <form method="POST" id="custom_form" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
-
-                        <input type="hidden" name="user_id" class="form-control" value="{{ $post->user_id }}" placeholder="Title">
-
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Title:</strong>
-                                    <input type="text" name="title" value="{{ $post->title }}" class="form-control" placeholder="Title">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Description:</strong>
-                                    <input type="text" name="description" value="{{ $post->description }}" class="form-control" placeholder="Description">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Body:</strong>
-                                    <textarea class="form-control" style="height:150px" name="body" placeholder="body">{{ $post->body }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <x-primary-button>{{ __('Submit') }}</x-primary-button>
+                        @method('patch')
+                        <input type="hidden" name="id" value="{{$post->id}}">
+                        <input type="hidden" name="user_id" value="{{$post->user_id}}">
+                        <div class="row mb-3">
+                            <label for="title" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $post->title) }}" autocomplete="title">
+                                @error('title')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
                         </div>
-
-
-                    </form>
-
+                        <div class="row mb-3">
+                            <label for="description" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description', $post->description) }}" autocomplete="description">
+                                @error('description')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="body" class="col-sm-2 col-form-label">Body</label>
+                            <div class="col-sm-10">
+                                <textarea name="body" id="body" class="form-control tinymce-editor @error('body') is-invalid @enderror" cols="30" rows="10">{!! old('body', $post->body) !!}</textarea>
+                                @error('body')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{{route('posts.index')}}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                            </div>
+                        </div>
+                    </form><!-- End General Form Elements -->
                 </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+	</div>
+</section>
+@endsection
+
+
+@section('custom_script')
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			$("#custom_form").validate({
+                ignore: ".ignore",
+				rules: {
+                    title: {required: true},
+                    description: {required: true},
+                    body: {required: true},
+				},
+			});
+		});
+	</script>
+@endsection

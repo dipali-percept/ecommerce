@@ -1,75 +1,78 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Posts') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+@section('admin_content')
+	<div class="pagetitle">
+		<h1>Manage Posts</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+				<li class="breadcrumb-item active">Posts</li>
+			</ol>
+		</nav>
+	</div><!-- End Page Title -->
 
-                    <div class="row">
-                        <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
-                                {{-- <h2>Posts</h2> --}}
-                            </div>
-                            <div class="pull-right">
-                                @can('post-create')
-                                <a class="btn btn-success" href="{{ route('posts.create') }}"> Create New Post</a>
-                                @endcan
-                            </div>
+	<section class="section">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Posts List</h5>
+                        <div class="add_button">
+                            <a href="{{route('posts.create')}}">
+                                <button type="button" class="btn btn-primary">Add Post</button>
+                            </a>
                         </div>
-                    </div>
 
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{$message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
 
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+                        @if ($message = Session::get('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{$message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
 
+						<!-- Table with stripped rows -->
+						<table class="table datatable">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Description</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($posts as $key => $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->user->name }}</td>
+                                        <td>{{ $item->title }}</td>
+                                        <td>{{ $item->description }}</td>
+                                        <td>
+                                            <form action="{{ route('posts.destroy',$item->id) }}" method="POST">
+                                                <a class="btn btn-info" href="{{ route('posts.show',$item->id) }}"><i class="bi bi-eye"></i></a>
+                                                <a class="btn btn-primary" href="{{ route('posts.edit',$item->id) }}"><i class="bi bi-pencil"></i></a>
 
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>No</th>
-                            <th>User Name</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th width="280px">Action</th>
-                        </tr>
-                        @foreach ($posts as $post)
-                        <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $post->user->name }}</td>
-                            <td>{{ $post->title }}</td>
-                            <td>{{ $post->description }}</td>
-                            <td>
-                                <form action="{{ route('posts.destroy',$post->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('posts.show',$post->id) }}">Show</a>
-                                    @can('post-edit')
-                                    <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">Edit</a>
-                                    @endcan
-
-                                    @csrf
-                                    @method('DELETE')
-                                    @can('post-delete')
-                                    <x-danger-button>{{ __('Delete') }}</x-danger-button>
-                                    @endcan
-
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
-
-
-                    {!! $posts->links() !!}
-
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
-
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+							</tbody>
+						</table>
+						<!-- End Table with stripped rows -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+@endsection

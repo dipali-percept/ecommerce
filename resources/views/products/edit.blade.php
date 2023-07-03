@@ -96,7 +96,7 @@
                                 <input id="images" type="file" class="form-control @error('images') is-invalid @enderror" name="images[]">
                                 @foreach ($getImage as $item)
                                     <img src="{{ asset('images/product').'/'.$item->images }}" height="100px" width="100px">
-                                    <a href="{{ route('products.deleteImage',[$product->id,$item->id]) }}" onclick="return confirm('Are you sure to delete image?')" class="btn btn-danger btn-sm" title="Remove product image"><i class="bi bi-trash"></i></a>
+                                    <a href="{{ route('products.deleteImage',[$product->id,$item->id]) }}" class="product-image" onclick="return confirm('Are you sure to delete image?')" title="Remove product image"><span class="badge bg-danger"><i class="bi bi-trash"></i></span></a>
                                 @endforeach
                                 @error('images')
                                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>

@@ -25,6 +25,14 @@ class CategoryController extends Controller
         return view('categories.index',compact('categories'));
     }
 
+    public function getProducts($category_id)
+    {
+        // dd('hi', $category_id);
+        // $categories = Category::all();
+        $products = Product::where('category_id', $category_id)->get();
+        return view('categories.getProducts',compact(['category_id', 'products']));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

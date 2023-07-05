@@ -38,6 +38,18 @@ Route::get('/admin_profile', function () {
     return view('admin.profile');
 });
 
+Route::get('/view', function () {
+    return view('frontend.index');
+});
+
+Route::get('/product', function () {
+    return view('frontend.product.index');
+})->name('product');
+
+Route::get('/category/product', function () {
+    return view('frontend.product.product-category');
+})->name('category.product');
+
 
 // ADMIN ROUTES
 Route::group(
@@ -48,7 +60,7 @@ Route::group(
 
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
-        })->name('dashboard');
+        })->name('admin.dashboard');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -60,6 +72,7 @@ Route::group(
         Route::post('/products/getSubCategory', [ProductController::class, 'getSubCategory'])->name('products.getSubCategory');
         Route::get('/products/deleteImage/{product_id}/{image_id}', [ProductController::class, 'deleteImage'])->name('products.deleteImage');
         Route::resource('categories', CategoryController::class);
+        Route::get('/categories/{id}/geProducts', [CategoryController::class, 'getProducts'])->name('categories.geProducts');
         Route::resource('posts', PostController::class);
         Route::resource('country', CountryController::class);
         Route::resource('sub_category', SubCategoryController::class);
@@ -78,9 +91,9 @@ Route::group(
 )->name('admin.');
 
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('admin.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::resource('users', UserController::class)->withoutMiddleware('admin');
 // Route::resource('posts', PostController::class)->middleware(['auth', 'user']);

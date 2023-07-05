@@ -43,6 +43,7 @@
 								<tr>
 									<th scope="col">#</th>
 									<th scope="col">Name</th>
+                                    <th scope="col">Products</th>
 									<th scope="col">Action</th>
 								</tr>
 							</thead>
@@ -51,6 +52,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
+                                        <td><a href="{{route('categories.geProducts', $item->id)}}"><button type="button" class="btn btn-link">View Product</button></a></td>
                                         <td>
                                             <form action="{{ route('categories.destroy',$item->id) }}" method="POST">
                                                 <a class="btn btn-info" href="{{ route('categories.show',$item->id) }}"><i class="bi bi-eye"></i></a>

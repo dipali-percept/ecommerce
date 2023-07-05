@@ -18,8 +18,9 @@ class IsUser
     {
         if (Auth::user() &&  Auth::user()->roles[0]->name === "User") {
             return $next($request);
+        } else {
+            Auth::logout();
+            return redirect()->route('login')->with('error','You have not user access');
         }
-
-       return redirect('dashboard')->with('error','You have not admin access');
     }
 }

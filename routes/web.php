@@ -10,6 +10,9 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\frontend\HomeController;
+use App\Http\Controllers\frontend\OrderController as FrontendOrderController;
+use App\Http\Controllers\frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\ImageGalleryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
@@ -26,19 +29,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/master', function () {
-    return view('admin.dashboard');
-});
+// Route::get('/master', function () {
+//     return view('admin.dashboard');
+// });
 
 Route::get('/admin_profile', function () {
     return view('admin.profile');
 });
 
-Route::get('/view', function () {
+Route::get('/', function () {
     return view('frontend.index');
 });
 
@@ -46,10 +49,14 @@ Route::get('/product', function () {
     return view('frontend.product.index');
 })->name('product');
 
-Route::get('/category/product', function () {
-    return view('frontend.product.product-category');
-})->name('category.product');
-
+Route::resource('home', HomeController::class);
+Route::resource('product', FrontendProductController::class);
+Route::get('/product/{id}/category', [FrontendProductController::class, 'getProductCategory'])->name('product.category');
+Route::get('/product-cart', [FrontendProductController::class, 'cart'])->name('product.cart');
+Route::get('/product-wishlist', [FrontendProductController::class, 'wishlist'])->name('product.wishlist');
+Route::get('/product-confirmation', [FrontendProductController::class, 'confirmation'])->name('product.confirmation');
+Route::get('/product-checkout', [FrontendProductController::class, 'checkout'])->name('product.checkout');
+Route::resource('order', FrontendOrderController::class);
 
 // ADMIN ROUTES
 Route::group(

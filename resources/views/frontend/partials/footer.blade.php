@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<ul class="social-media">
+				{{-- <ul class="social-media">
 					<li>
 						<a href="https://www.facebook.com/themefisher">
 							<i class="tf-ion-social-facebook"></i>
@@ -23,22 +23,22 @@
 							<i class="tf-ion-social-pinterest"></i>
 						</a>
 					</li>
-				</ul>
+				</ul> --}}
 				<ul class="footer-menu text-uppercase">
-					<li>
-						<a href="contact.html">CONTACT</a>
+                    <li>
+						<a href="{{url('/')}}">Home</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="#">CONTACT</a>
 					</li>
 					<li>
-						<a href="pricing.html">Pricing</a>
+						<a href="{{route('product.index')}}">PRODUCT</a>
 					</li>
 					<li>
-						<a href="contact.html">PRIVACY POLICY</a>
+						<a href="#">PRIVACY POLICY</a>
 					</li>
 				</ul>
-				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
+				<p class="copyright-text">Copyright &copy;2023, Designed &amp; Developed by <a href="https://perceptinfotech.com/">Percept Infotech</a></p>
 			</div>
 		</div>
 	</div>

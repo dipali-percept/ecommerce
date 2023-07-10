@@ -50,13 +50,15 @@ class AppServiceProvider extends ServiceProvider
             }
             $productCategoryList = Product::whereIn('id', $newArr)->get();
 
+            $admin = User::first();
 
             $view
             ->with('userCount', $userCount)
             ->with('productCount', $productCount)
             ->with('bannerList', $bannerList)
             ->with('productCategoryList', $productCategoryList)
-            ->with('productList', $productList);
+            ->with('productList', $productList)
+            ->with('admin_contact', $admin->number);
         });
 
     }

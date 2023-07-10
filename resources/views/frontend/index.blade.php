@@ -32,7 +32,7 @@
             @foreach ($productCategoryList as $item)
 			<div class="col-md-6">
 				<div class="category-box">
-					<a href="{{route('category.product')}}">
+					<a href="{{route('product.category', $item->id)}}">
                         @php
                             $getImage = App\Models\ProductImage::where('product_id', $item->id)->first();
                         @endphp
@@ -80,14 +80,14 @@
                                         <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
+                                        <a href="{{route('product.cart')}}"><i class="tf-ion-android-cart"></i></a>
                                     </li>
                                 </ul>
-                                </div>
+                            </div>
                         </div>
                         <div class="product-content">
                             <h4><a href="product-single.html">{{$item->name}}</a></h4>
-                            <p class="price">Rs. {{$item->price}}</p>
+                            <p class="price">₹{{$item->price}}</p>
                         </div>
                     </div>
                 </div>

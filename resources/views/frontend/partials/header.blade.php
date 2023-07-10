@@ -4,7 +4,7 @@
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<div class="contact-number">
 					<i class="tf-ion-ios-telephone"></i>
-					<span>0129- 12323-123123</span>
+					<span>{{$admin_contact}}</span>
 				</div>
 			</div>
 			<div class="col-md-4 col-xs-12 col-sm-4">
@@ -18,7 +18,7 @@
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">AVIATO</tspan>
+										<tspan x="108.94" y="325">Ecomm</tspan>
 									</text>
 								</g>
 							</g>
@@ -88,13 +88,8 @@
 					</li><!-- / Search -->
 
 					<!-- Languages -->
-					<li class="commonSelect">
-						<select class="form-control">
-							<option>EN</option>
-							<option>DE</option>
-							<option>FR</option>
-							<option>ES</option>
-						</select>
+					<li class="">
+						<a href="{{route('login')}}">Portal Login</a>
 					</li><!-- / Languages -->
 
 				</ul><!-- / .nav .navbar-nav .navbar-right -->

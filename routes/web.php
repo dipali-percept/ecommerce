@@ -11,8 +11,11 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\frontend\HomeController;
+use App\Http\Controllers\frontend\LoginController;
 use App\Http\Controllers\frontend\OrderController as FrontendOrderController;
+use App\Http\Controllers\frontend\PasswordResetController;
 use App\Http\Controllers\frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\frontend\RegisterController;
 use App\Http\Controllers\ImageGalleryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
@@ -49,6 +52,12 @@ Route::get('/product', function () {
     return view('frontend.product.index');
 })->name('product');
 
+// USER ROUTES
+
+Route::get('/user/login', [LoginController::class, 'create'])->name('user.login');
+Route::get('/user/register', [RegisterController::class, 'create'])->name('user.register');
+Route::get('/user/forgot-password', [PasswordResetController::class, 'create'])->name('user.forgot-password');
+
 Route::resource('home', HomeController::class);
 Route::resource('product', FrontendProductController::class);
 Route::get('/product/{id}/category', [FrontendProductController::class, 'getProductCategory'])->name('product.category');
@@ -56,6 +65,11 @@ Route::get('/product-cart', [FrontendProductController::class, 'cart'])->name('p
 Route::get('/product-wishlist', [FrontendProductController::class, 'wishlist'])->name('product.wishlist');
 Route::get('/product-confirmation', [FrontendProductController::class, 'confirmation'])->name('product.confirmation');
 Route::get('/product-checkout', [FrontendProductController::class, 'checkout'])->name('product.checkout');
+
+Route::get('/user-interface', [HomeController::class, 'interface'])->name('user.interface');
+Route::get('/user-address', [HomeController::class, 'getAddress'])->name('user.address');
+Route::get('/user-profile', [HomeController::class, 'profile'])->name('user.profile');
+
 Route::resource('order', FrontendOrderController::class);
 
 // ADMIN ROUTES

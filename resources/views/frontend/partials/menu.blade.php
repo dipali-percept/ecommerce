@@ -22,7 +22,6 @@
 						<a href="{{url('/')}}">Home</a>
 					</li><!-- / Home -->
 
-
 					<!-- Elements -->
 					<li class="dropdown dropdown-slide">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
@@ -72,10 +71,10 @@
 									<ul>
 										<li class="dropdown-header">Dashboard</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="#">User Interface</a></li>
-										<li><a href="#">Orders</a></li>
-										<li><a href="#">Address</a></li>
-										<li><a href="#">Profile Details</a></li>
+										<li><a href="{{route('user.interface')}}">User Interface</a></li>
+										<li><a href="{{route('order.index')}}">Orders</a></li>
+										<li><a href="{{route('user.address')}}">Address</a></li>
+										<li><a href="{{route('user.profile')}}">Profile Details</a></li>
 									</ul>
 								</div>
 
@@ -84,9 +83,9 @@
 									<ul>
 										<li class="dropdown-header">Utility</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="#">Login Page</a></li>
-										<li><a href="#">Signin Page</a></li>
-										<li><a href="#">Forget Password</a></li>
+										<li><a href="{{route('user.login')}}">Login Page</a></li>
+										<li><a href="{{route('user.register')}}">Signin Page</a></li>
+										<li><a href="{{route('user.forgot-password')}}">Forget Password</a></li>
 									</ul>
 								</div>
 

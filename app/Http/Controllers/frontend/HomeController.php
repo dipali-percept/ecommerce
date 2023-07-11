@@ -12,7 +12,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
+        return view('frontend.index');
+    }
+
+    public function interface()
+    {
+        return view('frontend.interface');
+    }
+
+    public function getAddress()
+    {
+        return view('frontend.address.index');
+    }
+
+    public function profile()
+    {
+        return view('frontend.profile');
     }
 
     /**
